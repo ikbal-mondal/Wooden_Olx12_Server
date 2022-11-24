@@ -12,14 +12,14 @@ app.use(express.json());
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.WoodenDBUSerId}:${process.env.WoodenDBpassword}@cluster0.vcnuad9.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
 async function run(){
-
+      
     try{
-
+     
+        const homeFurnitureCollection = client.db('WOODEN_OLX').collection('FurnitureCollectionForHome');
       
 
     }
