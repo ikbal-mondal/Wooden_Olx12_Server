@@ -23,8 +23,16 @@ async function run(){
       
     try{
      
-        const FurnitureCategoriesCollection = client.db('WOODEN_OLX').collection('FurnitureCategories');
-      
+        const FurnitureCategoriesCollection = client.db('WOODEN_OLX').collection('Categories');
+         
+        app.get('/Categories', async (req,res) => {
+
+            const query = {};
+            const FurnitureCategories = FurnitureCategoriesCollection.find(query);    
+            const Categories = await FurnitureCategories.toArray();
+            res.send(Categories)
+
+         })
 
     }
     finally{
