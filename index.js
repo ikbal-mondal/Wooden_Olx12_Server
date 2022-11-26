@@ -13,7 +13,6 @@ app.use(express.json());
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.WoodenDBUSerId}:${process.env.WoodenDBpassword}@cluster0.yxnrlzt.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -24,6 +23,7 @@ async function run(){
     try{
      
         const FurnitureCategoriesCollection = client.db('WOODEN_OLX').collection('Categories');
+        const ResellProductsCollection = client.db('WOODEN_OLX').collection('ResellProducts');
          
         app.get('/Categories', async (req,res) => {
 
@@ -33,6 +33,15 @@ async function run(){
             res.send(Categories)
 
          })
+        app.get('/ResellProducts', async (req,res) => {
+
+            const query = {};
+            const ResellProducts = ResellProductsCollection.find(query);    
+            const ResellProduct = await ResellProducts.toArray();
+            res.send(ResellProduct)
+
+         })
+
 
     }
     finally{
