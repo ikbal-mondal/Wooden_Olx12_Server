@@ -33,6 +33,7 @@ async function run(){
             res.send(Categories)
 
          })
+       
         app.get('/ResellProducts', async (req,res) => {
 
             const query = {};
@@ -41,7 +42,16 @@ async function run(){
             res.send(ResellProduct)
 
          })
-
+         app.get('/Categories/:id', async (req,res) => {
+            const id = req.params.id;
+            let query = {Category_id: parseInt(id) }
+            console.log(query);
+            const cursor = ResellProductsCollection.find(query)
+            const allCategories = await cursor.toArray();
+            res.send(allCategories)
+         })
+       
+          
 
     }
     finally{
