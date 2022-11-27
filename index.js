@@ -24,6 +24,7 @@ async function run(){
      
         const FurnitureCategoriesCollection = client.db('WOODEN_OLX').collection('Categories');
         const ResellProductsCollection = client.db('WOODEN_OLX').collection('ResellProducts');
+        const BookingsCollection = client.db('WOODEN_OLX').collection('Bookings');
          
         app.get('/Categories', async (req,res) => {
 
@@ -32,7 +33,7 @@ async function run(){
             const Categories = await FurnitureCategories.toArray();
             res.send(Categories)
 
-         })
+         });
        
         app.get('/ResellProducts', async (req,res) => {
 
@@ -41,17 +42,21 @@ async function run(){
             const ResellProduct = await ResellProducts.toArray();
             res.send(ResellProduct)
 
-         })
+         });
          app.get('/Categories/:id', async (req,res) => {
             const id = req.params.id;
             let query = {Category_id: parseInt(id) }
-            console.log(query);
             const cursor = ResellProductsCollection.find(query)
             const allCategories = await cursor.toArray();
             res.send(allCategories)
-         })
+         });
        
-          
+        app.post('/bookings',async(req,res) => {
+            const booking = req.body;
+            console.log(booking);
+            const result = await BookingsCollection.insertOne(booking);
+            res.send(result)
+        })  
 
     }
     finally{
